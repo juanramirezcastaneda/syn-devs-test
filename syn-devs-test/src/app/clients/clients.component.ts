@@ -9,6 +9,7 @@ import { ClientService } from "../client.service";
 })
 export class ClientsComponent implements OnInit {
   clients: Client[];
+  selectedClient: Client;
   constructor(private clientService: ClientService) {}
 
   ngOnInit() {

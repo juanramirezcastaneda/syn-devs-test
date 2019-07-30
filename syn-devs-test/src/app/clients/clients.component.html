@@ -2,17 +2,22 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Gender</th>
         <th scope="col">Name</th>
-        <th scope="col">Location</th>
+        <th scope="col">Address</th>
         <th scope="col">Email</th>
+        <th scope="col">UserName</th>
       </tr>
     </thead>
     <tr *ngFor="let client of clients">
-      <td>{{ client.gender }}</td>
-      <td>{{ "" }}</td>
-      <td>{{ "" }}</td>
+      <td>
+        {{ client.name.title }} {{ client.name.first }} {{ client.name.last }}
+      </td>
+      <td>
+        {{ client.location.street }} {{ client.location.city }}
+        {{ client.location.state }}
+      </td>
       <td>{{ client.email }}</td>
+      <td>{{ client.login.username }}</td>
     </tr>
   </table>
 </div>

@@ -87,7 +87,7 @@ export class ClientService {
       "juan.daluz@example.com",
       {
         uuid: "348134f7-de19-4b93-9511-4dd341a9ce30",
-        username: "bigbutterfly371",
+        username: "fidein",
         password: "freepass",
         salt: "Y7fKRMpv",
         md5: "b1ae57991858ee762170e4c66ab16351",

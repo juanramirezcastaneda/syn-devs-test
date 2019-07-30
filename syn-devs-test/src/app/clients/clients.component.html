@@ -6,6 +6,7 @@
         <th scope="col">Address</th>
         <th scope="col">Email</th>
         <th scope="col">UserName</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tr *ngFor="let client of clients">
@@ -18,7 +19,21 @@
       </td>
       <td>{{ client.email }}</td>
       <td>{{ client.login.username }}</td>
+      <td>
+        <div class="row">
+          <div class="col-6">
+            <button type="button" class="btn btn-primary">Detail</button>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </td>
     </tr>
   </table>
 </div>
 <div>{{ clients | json }}</div>
+<section>
+  Detail
+  <div>{{ selectedClient | json }}</div>
+</section>

@@ -20,7 +20,7 @@ export class ClientsComponent implements OnInit {
 
   getClients(): void {
     this.clientService
-      .getClients()
+      .getMockedClients()
       .subscribe(clients => (this.clients = clients));
   }
   selectClient(client: Client): void {

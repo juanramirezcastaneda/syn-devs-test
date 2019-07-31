@@ -14,7 +14,38 @@ export class ClientService {
     this.selectedClient$ = store.pipe(select("client"));
   }
 
-  public getClients(): Observable<Client[]> {
+  public getClients() {}
+
+  public selectClient(client: Client) {
+    this.store.dispatch(selectClient({ client: client }));
+  }
+
+  public deleteClient(): void {
+    this.store.dispatch(reset());
+  }
+
+  public getSelectedClient() {
+    return this.store.pipe(select("client"));
+  }
+
+  private orderClientsByAge(clients: Client[]) {
+    const sortedClients = clients.sort((clientA, clientB) => {
+      const dobClientA = new Date(clientA.dob.date);
+      const dobClientB = new Date(clientB.dob.date);
+
+      if (dobClientA < dobClientB) return +1;
+      if (dobClientA > dobClientB) return -1;
+      if (dobClientA === dobClientB) return 0;
+    });
+    return sortedClients;
+  }
+
+  public getOlderClient(clients: Client[]): Client {
+    let orderedClients = this.orderClientsByAge(clients);
+    return orderedClients[0];
+  }
+
+  public getMockedClients(): Observable<Client[]> {
     const testClient = new Client(
       "male",
       {
@@ -125,17 +156,5 @@ export class ClientService {
 
     const arrayToReturn = new Array<Client>(testClient, testClient2);
     return from([arrayToReturn]);
-  }
-
-  public selectClient(client: Client) {
-    this.store.dispatch(selectClient({ client: client }));
-  }
-
-  public deleteClient(): void {
-    this.store.dispatch(reset());
-  }
-
-  public getSelectedClient() {
-    return this.store.pipe(select("client"));
   }
 }

@@ -120,4 +120,6 @@ export class ClientService {
     const arrayToReturn = new Array<Client>(testClient, testClient2);
     return from([arrayToReturn]);
   }
+
+  public deleteClient(): void {}
 }

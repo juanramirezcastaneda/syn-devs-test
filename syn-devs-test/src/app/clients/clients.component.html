@@ -22,10 +22,22 @@
       <td>
         <div class="row">
           <div class="col-6">
-            <button type="button" class="btn btn-primary">Detail</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="selectClient(client)"
+            >
+              Detail
+            </button>
           </div>
           <div class="col-6">
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="deleteClient(client)"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </td>
@@ -35,5 +47,5 @@
 <div>{{ clients | json }}</div>
 <section>
   Detail
-  <div>{{ selectedClient | json }}</div>
+  <div>Current Client: {{ selectedClient$ | async | json }}</div>
 </section>

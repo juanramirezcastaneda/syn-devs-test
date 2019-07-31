@@ -3,18 +3,12 @@ import { NgModule } from "@angular/core";
 
 import { AppComponent } from "./app.component";
 import { ClientsComponent } from "./clients/clients.component";
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
+import { StoreModule } from "@ngrx/store";
+import { clientReducer } from "./reducers/client.reducer";
 
 @NgModule({
   declarations: [AppComponent, ClientsComponent],
-  imports: [BrowserModule, StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    })],
+  imports: [BrowserModule, StoreModule.forRoot({ client: clientReducer })],
   providers: [],
   bootstrap: [AppComponent]
 })

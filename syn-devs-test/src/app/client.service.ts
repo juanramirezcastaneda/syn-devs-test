@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, from } from "rxjs";
+import { Observable, from, of } from "rxjs";
 import { Client } from "./client.model";
 import { Store, select } from "@ngrx/store";
 import { selectClient, reset } from "./actions/client.actions";
@@ -9,12 +9,33 @@ import { selectClient, reset } from "./actions/client.actions";
 })
 export class ClientService {
   selectedClient$: Observable<any>;
+  clients$: Observable<any>;
 
   constructor(private store: Store<{ client: any }>) {
-    this.selectedClient$ = store.pipe(select("client"));
+    this.clients$ = store.select(state => {
+      return state.client.clients;
+    });
+    this.selectedClient$ = store.select(state => {
+      return state.client.client;
+    });
   }
 
-  public getClients() {}
+  public getClients() {
+    this.store.dispatch({ type: "[Clients Page] Load Clients" });
+    return this.clients$;
+  }
+
+  public fetchClients() {
+    // TODO : the base url should be inside an environment resource
+    var fetchPromise = fetch("https://randomuser.me/api/?results=500")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        return myJson.results;
+      });
+    return from(fetchPromise);
+  }
 
   public selectClient(client: Client) {
     this.store.dispatch(selectClient({ client: client }));
@@ -25,7 +46,7 @@ export class ClientService {
   }
 
   public getSelectedClient() {
-    return this.store.pipe(select("client"));
+    return this.selectedClient$;
   }
 
   private orderClientsByAge(clients: Client[]) {

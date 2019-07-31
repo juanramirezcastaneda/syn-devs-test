@@ -6,5 +6,8 @@ export const selectClient = createAction(
   props<{ client: Client }>()
 );
 export const reset = createAction("[Clients Component] Reset");
-export const startClientsLoad = createAction("[Clients Component] Load");
-export const endClientsLoad = createAction("[Clients Component] Load");
+export const startClientsLoad = createAction("[Clients Page] Load Clients");
+export const endClientsLoad = createAction(
+  "[Clients API] Clients Loaded Success",
+  props<{ clients: any }>()
+);

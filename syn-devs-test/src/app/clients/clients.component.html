@@ -1,4 +1,4 @@
-<div *ngIf="clients">
+<div *ngIf="clients$">
   <table class="table">
     <thead>
       <tr>
@@ -9,7 +9,7 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tr *ngFor="let client of clients">
+    <tr *ngFor="let client of clients$ | async">
       <td>
         {{ client.name.title }} {{ client.name.first }} {{ client.name.last }}
       </td>
@@ -46,5 +46,5 @@
 </div>
 <section>
   Detail
-  <div>Current Client: {{ selectedClient$ | async | json }}</div>
+  <div>Current Client: {{ selectedClient | json }}</div>
 </section>

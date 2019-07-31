@@ -1,12 +1,18 @@
 import { Injectable } from "@angular/core";
 import { Observable, from } from "rxjs";
 import { Client } from "./client.model";
+import { Store, select } from "@ngrx/store";
+import { selectClient, reset } from "./actions/client.actions";
 
 @Injectable({
   providedIn: "root"
 })
 export class ClientService {
-  constructor() {}
+  selectedClient$: Observable<any>;
+
+  constructor(private store: Store<{ client: any }>) {
+    this.selectedClient$ = store.pipe(select("client"));
+  }
 
   public getClients(): Observable<Client[]> {
     const testClient = new Client(
@@ -121,5 +127,15 @@ export class ClientService {
     return from([arrayToReturn]);
   }
 
-  public deleteClient(): void {}
+  public selectClient(client: Client) {
+    this.store.dispatch(selectClient({ client: client }));
+  }
+
+  public deleteClient(): void {
+    this.store.dispatch(reset());
+  }
+
+  public getSelectedClient() {
+    return this.store.pipe(select("client"));
+  }
 }

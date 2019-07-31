@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Client } from "../client.model";
 import { ClientService } from "../client.service";
-import { selectClient, reset } from "../actions/client.actions";
-import { Store, select } from "@ngrx/store";
 import { Observable } from "rxjs";
 
 @Component({
@@ -13,16 +11,13 @@ import { Observable } from "rxjs";
 export class ClientsComponent implements OnInit {
   clients: Client[];
   selectedClient$: Observable<any>;
-  constructor(
-    private clientService: ClientService,
-    private store: Store<{ client: any }>
-  ) {
-    this.selectedClient$ = store.pipe(select("client"));
-  }
+  constructor(private clientService: ClientService) {}
 
   ngOnInit() {
     this.getClients();
+    this.selectedClient$ = this.clientService.getSelectedClient();
   }
+
   getClients(): void {
     this.clientService
       .getClients()
@@ -30,10 +25,10 @@ export class ClientsComponent implements OnInit {
   }
   selectClient(client: Client): void {
     console.log("Selecting");
-    this.store.dispatch(selectClient({ client: client }));
+    this.clientService.selectClient(client);
   }
   deleteClient(): void {
     console.log("Deleting");
-    this.store.dispatch(reset());
+    this.clientService.deleteClient();
   }
 }
